@@ -128,8 +128,9 @@ Users can repeat the process with additional questions, allowing them to refine 
 
 ## Contributors
 
-- **Khushi Bajpai**: Contributed to hardware integration and testing.
-- **Shruti Jain**: Contributed to the frontend development and UI/UX design.
+@SakshiFadnavis2003
+@KhushiBajpai2003
+@shrutiijainn11
 
 ---
 
