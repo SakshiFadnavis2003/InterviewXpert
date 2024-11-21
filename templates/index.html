@@ -1,0 +1,524 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InterviewXpert</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom right, #f4f4f4, #e0e0e0); /* Gradient background */
+            color: #333;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 0;
+            background: linear-gradient(to right, #007bff, #0056b3); /* Gradient background for header */
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            font-size: 3em;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        p {
+            font-size: 1.2em;
+            animation: slideIn 0.8s ease-in-out;
+        }
+
+        /* Carousel Styles */
+        .carousel {
+            position: relative;
+            margin: 40px 0;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-content {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            padding: 20px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .carousel-item h2 {
+            margin: 15px 0;
+            font-size: 1.8em;
+        }
+
+        .carousel-item p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .carousel-buttons {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .carousel-buttons button {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .carousel-buttons button:hover {
+            background-color: rgba(255, 255, 255, 1);
+            transform: scale(1.1);
+        }
+
+        /* Features Section */
+        .features {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .feature {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            flex-basis: 30%;
+            text-align: center;
+        }
+
+        .feature i {
+            font-size: 3em;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button {
+            display: block;
+            width: 250px;
+            margin: 30px auto;
+            padding: 15px;
+            background-color: #007bff; /* Button color set to blue */
+            color: white;
+            text-align: center;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            transform: scale(1.05);
+        }
+
+        /* Job Roles Section */
+        .job-roles {
+            margin: 40px 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .job-role {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            flex-basis: 30%;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .job-role i {
+            font-size: 3em;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        /* Flow Section */
+        .flow-section {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .flow-item {
+            text-align: center;
+            margin: 20px;
+            animation: bounceIn 0.5s ease-in-out;
+        }
+
+        .flow-item i {
+            font-size: 4em;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        /* About Section */
+        .about {
+            text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 10px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounceIn {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .features,
+            .job-roles,
+            .flow-section {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .feature,
+            .job-role {
+                flex-basis: 80%;
+            }
+
+            .flow-item {
+                margin: 15px 0;
+            }
+        }
+        .animated-heading {
+            font-size: 2.5em;
+            color: #3498db;
+            animation: bounce 3s;
+            text-align: center;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+        .header-strip {
+            background-color: #3498db; /* Change this color as needed */
+            color: white;
+            padding: 10px;
+            text-align: center;
+            width: 100%; /* Ensures the strip stretches across the width of the page */
+            position: relative; /* Allows positioning of child elements */
+        }
+        
+        .header-text {
+            margin: 0;
+            font-size: 2em; /* Adjusted font size for better visibility */
+            animation: slide-in 1s forwards; /* Slide-in animation */
+        }
+        
+        @keyframes slide-in {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .styled-divider {
+            border: 0;
+            height: 2px;
+            background: #3690ff; /* Line color */
+            margin: 20px 0; /* Spacing around the line */
+        }
+        
+        .decorative-divider {
+            height: 4px; /* Height of the divider */
+            background: linear-gradient(to right, #658efe, #5036fe); /* Gradient color */
+            margin: 20px 0; /* Spacing around the line */
+        }
+        .header {
+            background-image: url('https://via.placeholder.com/1920x400'); /* Background image */
+            background-size: cover;
+            color: rgb(6, 63, 186);
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            background-color: rgba(240, 232, 232, 0.815);
+            font-weight: 400;
+        }
+
+  
+
+        .header h1 {
+            font-size: 3em;
+            margin: 0;
+            z-index: 2; /* Position above the overlay */
+        }
+
+        .header p {
+            font-size: 1.5em;
+            z-index: 2;
+            margin: 10px 0;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: right;
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            z-index: 2;
+        }
+       
+        .nav li {
+            margin: 0 15px;
+        }
+
+        .nav a {
+            color: rgb(3, 23, 91);
+            text-decoration: none;
+            padding: 10px 5px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <headertop class="header" style="background-color:rgb(255, 255, 255)">
+        <p style="text-align: left; margin-left: 70px; font-size: 30px; margin-top: 30px">Your Virtual Coach for Every Interview!</p>
+        <ul class="nav" style="margin-right: 50px">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </header>
+    <div class="styled-divider" style="width:100%"></div>
+    <div class="container">
+        <header>
+            <h1>Welcome to InterviewXpert</h1>
+            <p>Your gateway to mastering interview skills!</p>
+        </header>
+
+        <!-- Enhanced Carousel Section -->
+        <section class="carousel">
+            <div class="carousel-content">
+                <div class="carousel-item">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h2>Real-Time Practice Interviews</h2>
+                    <p>Simulate realistic interview scenarios with our AI-driven virtual bot for instant feedback.</p>
+                </div>
+                <div class="carousel-item">
+                    <i class="fas fa-question-circle"></i>
+                    <h2>Job-Specific Questions</h2>
+                    <p>Practice questions tailored to specific job roles and industries for optimal preparation.</p>
+                </div>
+                <div class="carousel-item">
+                    <i class="fas fa-chart-pie"></i>
+                    <h2>In-Depth Performance Analysis</h2>
+                    <p>Receive feedback on gestures, speech, and overall confidence level.</p>
+                </div>
+            </div>
+            <div class="carousel-buttons">
+                <button onclick="prevSlide()">&#10094;</button>
+                <button onclick="nextSlide()">&#10095;</button>
+            </div>
+        </section>
+
+        <!-- Job Roles Section -->
+        <h2 class="animated-heading">Multiple Job Roles Available</h2>
+        <section class="job-roles">
+            <div class="job-role">
+                <i class="fas fa-user-tie"></i>
+                <h3>Data Analyst</h3>
+                <p>Analyze data trends and provide actionable insights to enhance business decisions.</p>
+            </div>
+            <div class="job-role">
+                <i class="fas fa-code"></i>
+                <h3>Software Developer</h3>
+                <p>Design, develop, and maintain software applications for various platforms.</p>
+            </div>
+            <div class="job-role">
+                <i class="fas fa-chart-line"></i>
+                <h3>Data Scientist</h3>
+                <p>Utilize statistical methods and machine learning to analyze complex data.</p>
+            </div>
+            <div class="job-role">
+                <i class="fas fa-users"></i>
+                <h3>Business Analyst</h3>
+                <p>Facilitate data-driven decision-making to enhance overall business performance.</p>
+            </div>
+        </section>
+        <div class="styled-divider"></div>
+       
+        <div class="decorative-divider"></div>
+
+
+
+        <!-- Features Section -->
+        <h2 class="animated-heading">Our Features</h2>
+        <section class="features">
+            <div class="feature">
+                <i class="fas fa-comments"></i>
+                <h3>User-friendly</h3>
+                <p>Have a smooth interview experience with easy to navigate interface.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-user-graduate"></i>
+                <h3>Targeted Questions</h3>
+                <p>Practice with a set of targeted questions specific to the job role.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-signal"></i>
+                <h3>Analytics-Driven</h3>
+                <p>Data-backed analysis to improve your interview performance over time.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-robot"></i>
+                <h3>AI-Driven</h3>
+                <p>AI monitoring throughout the interview for constructice feedback.</p>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+         
+        <!-- <a href="index.html" class="cta-button" id="goToQuestions">Start Your Journey Now</a> -->
+        <button id="goToQuestions" class="cta-button">Start Your Journey Now</button>
+
+        <div class="header-strip">
+            <h3 class="header-text">Quite Easy to Use!</h3>
+        </div>
+
+        <!-- Flow Section -->
+        <section class="flow-section">
+            <div class="flow-item">
+                <i class="fas fa-clipboard-check"></i>
+                <h3>Step 1: Register</h3>
+                <p>Create your account and get started.</p>
+            </div>
+            <div class="flow-item">
+                <i class="fas fa-comments"></i>
+                <h3>Step 2: Practice</h3>
+                <p>Engage in practice interviews with our AI bot.</p>
+            </div>
+            <div class="flow-item">
+                <i class="fas fa-trophy"></i>
+                <h3>Step 3: Improve</h3>
+                <p>Receive feedback and track your progress.</p>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about">
+            <h2>About Us</h2>
+            <p>We are dedicated to helping you succeed in your career through personalized interview preparation and feedback. Join us and take the first step towards your dream job!</p>
+        </section>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.carousel-item');
+            if (index >= slides.length) {
+                currentSlide = 0;
+            } else if (index < 0) {
+                currentSlide = slides.length - 1;
+            } else {
+                currentSlide = index;
+            }
+            const offset = -currentSlide * 100;
+            document.querySelector('.carousel-content').style.transform = `translateX(${offset}%)`;
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Auto Slide every 5 seconds
+        setInterval(nextSlide, 5000);
+        document.getElementById("goToQuestions").onclick = function() {
+            window.location.href = "{{ url_for('index2') }}";
+        };
+
+    </script>
+</body>
+</html>

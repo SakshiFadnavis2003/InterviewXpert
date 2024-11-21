@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interview Question</title>
+    <style>
+        /* Styling similar to the previous code */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+        #bot-container {
+            width: 400px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+            margin: 0 auto;
+        }
+        video, img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .question {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #loading {
+            display: none;
+            color: #ff5722;
+            font-weight: bold;
+        }
+        #stt-output, #feedback-output {
+            margin-top: 20px;
+            max-width: 700px;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Interview Question</h1>    
+    <div class="question" id="questionText">{{ question }}</div>
+    <br>
+    <br>
+    <div id="bot-container">
+        <!-- Bot video is shown initially -->
+        <video id="virtual-human-video" autoplay muted loop>
+            <source src="/static/video.mp4" type="video/mp4">
+        </video>
+        <!-- Fallback image -->
+        <img id="fallback-image" src="/static/image.jpg" alt="Virtual Human" style="display: none;">
+    </div>
+    <br>
+    <br>
+    <button onclick="startRecording()">Record Answer</button>
+    <button onclick="stopRecording()">Stop Recording</button>
+    <button onclick="submitAnswer()">Submit and view feedback</button>
+    <br>
+    <br>
+    <video id="recordedVideo" controls style="display: none; height: 350px; width: 500px; margin-left: 300px;"></video>
+    <p id="loading">Listening...</p>
+    <div id="feedback-output" style="display: none;">Feedback will appear here...</div>
+    <button id="viewFeedbackButton" onclick="showFeedback()" style="display: none;">Body Language Analysis</button>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div id="stt-output">Transcription will appear here...</div>
+
+    <script>
+        let mediaRecorder;
+        let recordedChunks = [];
+        const videoElement = document.getElementById('recordedVideo');
+        const sttOutput = document.getElementById('stt-output');
+        const feedbackOutput = document.getElementById('feedback-output');
+        const loading = document.getElementById('loading');
+        const viewFeedbackButton = document.getElementById('viewFeedbackButton');
+        let finalTranscript = ''; // Store the final transcript
+
+        function sanitizeFeedback(feedback) {
+            // Remove unwanted asterisks or extra formatting
+            return feedback.replace(/\*\*/g, ''); // Removes double asterisks
+        }
+
+        // Text-to-Speech function
+        function textToSpeech(text) {
+            if (!text.trim()) {
+                alert("Please enter some text to convert.");
+                return;
+            }
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+
+            // Show the bot video initially
+            const botVideo = document.getElementById('virtual-human-video');
+            const fallbackImage = document.getElementById('fallback-image');
+            botVideo.style.display = "block"; // Show video
+            fallbackImage.style.display = "none"; // Hide fallback image
+
+            // Set up an event to handle when speech ends
+            utterance.onend = () => {
+                botVideo.style.display = "none"; // Hide video after speaking
+                fallbackImage.style.display = "block"; // Show fallback image
+            };
+
+            speechSynthesis.speak(utterance);
+        }
+
+        // Function to start the TTS when the page loads
+        function initializeTTS() {
+            const questionText = document.getElementById('questionText').innerText;
+            textToSpeech(questionText);
+        }
+
+        // Run TTS when the page loads
+        window.onload = initializeTTS;
+
+
+        // Text-to-Speech to read question on page load
+        /*function textToSpeech(text) {
+            if (!text.trim()) {
+                alert("Please enter some text to convert.");
+                return;
+            }
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            
+            // Show the bot video initially
+            const botVideo = document.getElementById('virtual-human-video');
+            const fallbackImage = document.getElementById('fallback-image');
+            botVideo.style.display = "block"; // Show video
+            fallbackImage.style.display = "none"; // Hide fallback image
+
+            // Set up an event to handle when speech ends
+            utterance.onend = () => {
+                botVideo.style.display = "none"; // Hide video after speaking
+                fallbackImage.style.display = "block"; // Show fallback image
+            };
+
+            speechSynthesis.speak(utterance);
+        }
+
+        // Run TTS when the page loads
+        window.onload = () => {
+            const questionText = document.getElementById('questionText').innerText;
+            textToSpeech(questionText);
+        };
+
+
+        // Text-to-Speech to read question on page load
+        /* function textToSpeech(text) {
+            if (!text.trim()) {
+                alert("Please enter some text to convert.");
+                return;
+            }
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            speechSynthesis.speak(utterance);
+        }
+
+        // Run TTS when the page loads
+        window.onload = () => {
+            const questionText = document.getElementById('questionText').innerText;
+            textToSpeech(questionText);
+        }; */
+
+        // Speech recognition setup
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.interimResults = true; // Set to true to get interim results
+        recognition.maxAlternatives = 1; // Only need the best alternative
+
+        recognition.onstart = () => {
+            document.getElementById('loading').style.display = 'block';
+            console.log('Voice recognition started. Speak into the microphone.');
+        };
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[event.results.length - 1][0].transcript;
+            document.getElementById('stt-output').textContent += transcript + '\n';
+ // Append to output
+        };
+        
+
+        recognition.onend = () => {
+            document.getElementById('loading').style.display = 'none';
+            if (isRecording) {
+                recognition.start(); // Restart recognition if still recording
+            }
+        };
+
+        recognition.onerror = (event) => {
+            console.error('Error occurred in recognition: ', event.error);
+            document.getElementById('loading').style.display = 'none';
+            alert(`Error: ${event.error}`);
+
+        };
+
+        async function startRecording() {
+            finalTranscript = ''; // Clear transcript on new recording
+            sttOutput.textContent = ''; // Clear transcription display
+            recordedChunks = []; // Clear previous video data
+        
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+            mediaRecorder = new MediaRecorder(stream);
+            videoElement.srcObject = stream;
+            videoElement.style.display = 'block';
+            videoElement.muted = true; // Mute video element during recording
+        
+            mediaRecorder.ondataavailable = (event) => {
+                if (event.data.size > 0) {
+                    recordedChunks.push(event.data);
+                }
+            };
+        
+            mediaRecorder.onstop = () => {
+                const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                videoElement.srcObject = null;
+                videoElement.src = URL.createObjectURL(blob);
+                videoElement.controls = true;
+                videoElement.style.display = 'block';
+                videoElement.muted = false; // Unmute video element for playback
+                setTimeout(showFeedback, 500);
+            };
+        
+            mediaRecorder.start();
+            recognition.start();
+        }
+        
+
+        function stopRecording() {
+            if (mediaRecorder && mediaRecorder.state === 'recording') {
+                mediaRecorder.stop();
+                recognition.stop();
+            }
+        }
+
+        async function submitAnswer() {
+            if (!recordedChunks.length) {
+                alert("No video recorded.");
+                return;
+            }
+            const transcription = document.getElementById('stt-output').textContent;
+            if (!transcription) {
+                alert("Please provide a transcription.");
+                return;
+            }
+
+            const videoBlob = new Blob(recordedChunks, { type: 'video/webm' });
+            const formData = new FormData();
+            formData.append('video', videoBlob, 'recorded_video.webm');
+            formData.append('transcription', transcription);
+
+            try {
+                const response = await fetch('/submit', { method: 'POST', body: formData });
+                const data = await response.json();
+                //feedbackOutput.textContent = `Feedback: ${data.feedback}`;
+                const sanitizedFeedback = sanitizeFeedback(data.feedback);
+                feedbackOutput.textContent = `Feedback: ${sanitizedFeedback}`
+                feedbackOutput.style.display = 'block';
+                viewFeedbackButton.style.display = 'block';
+            } catch (error) {
+                console.error("Submission error:", error);
+            }
+        }
+
+        async function showFeedback() {
+            const videoBlob = new Blob(recordedChunks, { type: 'video/webm' });
+            const formData = new FormData();
+            formData.append('video', videoBlob, 'recorded_video.webm');
+        
+            try {
+                const response = await fetch('/analyze_body_language', { method: 'POST', body: formData });
+                const data = await response.json();
+        
+                // Check if 'summary' is present in the response
+                if (data && data.summary) {
+                    feedbackOutput.textContent += `\n\nBody Language Analysis: ${data.summary}`;
+                } else {
+                    feedbackOutput.textContent += `\n\nBody Language Analysis: No analysis summary available.`;
+                    console.warn("Body language analysis returned no summary:", data);
+                }
+                
+            } catch (error) {
+                console.error("Analysis error:", error);
+                feedbackOutput.textContent += "\n\nBody Language Analysis: An error occurred during analysis.";
+            }
+        }
+    </script>
+</body>
+</html>

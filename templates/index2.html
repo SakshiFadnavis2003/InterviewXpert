@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Analyst Interview Questions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            margin-top: -20px;
+        }
+        form {
+            margin-bottom: 10px; /* Adjusted space between form and questions */
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .output {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            max-width: 1000px;
+            margin: 0 auto;
+            line-height: 1;
+            white-space: pre-wrap;
+        }
+        /*ul {
+            padding: 0;
+            list-style-type: none
+        
+        }
+        li {
+            margin: 5px 0; 
+        }*/
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>InterviewXpert</h1>
+    <h2>Your Virtual Coach for Success in Every Interview
+    </h2><br><hr><hr><br>
+    <h3>Data Analyst Interview Questions Generator</h3>
+    <form method="POST">
+        <button type="submit">Generate Questions</button>
+    </form>
+    {% if output %}
+        <div class="output">
+            <h2 style="text-align: center">Generated Interview Questions</h2>
+            <ul style="list-style-type: none; padding: 5px; margin: 20px; margin-top: -70px">
+                {% set questions = output.split('\n') %}
+                {% for question in questions %}
+                    {% if question.strip() %}
+                        <li style="margin: -20px; padding: 0;"><a href="{{ url_for('question_page', question_id=loop.index0) }}" target="_blank">{{ question }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Speaking Animation</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .chatbot-avatar {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        #bot-image {
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+        .speaking {
+            animation: mouthMove 0.5s infinite;
+        }
+        @keyframes mouthMove {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+        .speaking-indicator {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: #3498db;
+            border-radius: 50%;
+            margin: 0 3px;
+            animation: bounce 1s infinite;
+        }
+        .dot:nth-child(2) { animation-delay: 0.2s; }
+        .dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="chatbot-avatar">
+        <img id="bot-image" src="https://via.placeholder.com/150" alt="Chatbot Avatar">
+    </div>
+    <div class="speaking-indicator">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+    <button onclick="speakWithIndicator('Hello, I am your friendly chatbot!')">Click to Speak</button>
+
+    <script>
+        function showSpeakingIndicator() {
+            document.querySelector('.speaking-indicator').style.display = 'flex';
+        }
+
+        function hideSpeakingIndicator() {
+            document.querySelector('.speaking-indicator').style.display = 'none';
+        }
+
+        function playSpeech(audioUrl) {
+            const audio = new Audio(audioUrl);
+            const botImage = document.getElementById('bot-image');
+            botImage.classList.add('speaking');
+            showSpeakingIndicator();
+
+            audio.play();
+
+            audio.onended = () => {
+                botImage.classList.remove('speaking');
+                hideSpeakingIndicator();
+            };
+        }
+
+        function speakWithIndicator(text) {
+            // This is a placeholder; replace with your actual Text-to-Speech service URL or function
+            const ttsAudioUrl = 'https://www.soundjay.com/button/sounds/button-16.mp3';
+            playSpeech(ttsAudioUrl);
+        }
+    </script>
+</body>
+</html>

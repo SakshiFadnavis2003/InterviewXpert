@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Speech-to-Text and Text-to-Speech Integration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        button, input {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+
+        #stt-output, #tts-input {
+            width: 300px;
+        }
+
+        #loading {
+            display: none;
+            color: #ff5722;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Speech-to-Text Section -->
+    <button id="start-btn">🎤 Start Speech-to-Text</button>
+    <p id="loading">Listening...</p>
+    <p id="stt-output">Transcription will appear here...</p>
+
+    <!-- Text-to-Speech Section -->
+    <input type="text" id="tts-input" placeholder="Type text to convert to speech">
+    <button id="speak-btn">🔊 Convert Text-to-Speech</button>
+
+    <script>
+        // Speech-to-Text Functionality
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+
+        recognition.onstart = () => {
+            document.getElementById('loading').style.display = 'block';
+            console.log('Voice recognition started. Speak into the microphone.');
+        };
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            document.getElementById('stt-output').textContent = transcript;
+            document.getElementById('loading').style.display = 'none';
+        };
+
+        recognition.onerror = (event) => {
+            console.error('Error occurred in recognition: ', event.error);
+            document.getElementById('loading').style.display = 'none';
+            alert(`Error: ${event.error}`);
+        };
+
+        document.getElementById('start-btn').onclick = () => {
+            recognition.start();
+        };
+
+        // Text-to-Speech Functionality
+        function textToSpeech(text) {
+            if (!text.trim()) {
+                alert("Please enter some text to convert.");
+                return;
+            }
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.onstart = () => {
+                console.log('Speech synthesis started.');
+            };
+            utterance.onend = () => {
+                console.log('Speech synthesis ended.');
+            };
+            utterance.onerror = (event) => {
+                console.error('Error in speech synthesis: ', event.error);
+                alert(`Error: ${event.error}`);
+            };
+            speechSynthesis.speak(utterance);
+        }
+
+        document.getElementById('speak-btn').onclick = () => {
+            const text = document.getElementById('tts-input').value;
+            textToSpeech(text);
+        };
+    </script>
+</body>
+</html>
