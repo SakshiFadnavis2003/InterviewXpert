@@ -128,10 +128,10 @@ Users can repeat the process with additional questions, allowing them to refine 
 
 ## Contributors
 
-@SakshiFadnavis2003
-@KhushiBajpai2003
-@shrutiijainn11
-
+- [@SakshiFadnavis2003](https://github.com/SakshiFadnavis2003)
+- [@KhushiBajpai2003](https://github.com/KhushiBajpai2003)
+- [@shrutiijainn11](https://github.com/shrutiijainn11)
+  
 ---
 
 ## License
