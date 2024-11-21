@@ -7,6 +7,8 @@
 ## Methodology
 
 The development of **InterviewXpert** was structured around integrating cutting-edge AI technologies, including Natural Language Processing (NLP), generative AI, and computer vision, to create an immersive user experience. The platform was developed step-by-step to ensure a robust, interactive system that helps users enhance their interview skills.
+
+
 ![image](https://github.com/user-attachments/assets/cc91576c-2506-4a5f-89c4-5a22c8584a65)
 
 
@@ -33,22 +35,34 @@ The platform’s feedback system analyzed both verbal and non-verbal cues. By pr
 ### 3. Website Creation and Model Integration
 
 A responsive website was created using **HTML**, **CSS**, and **JavaScript** to host the AI models and provide a user-friendly interface. The site was structured to facilitate easy navigation through various interview stages.
+
+
 ![image](https://github.com/user-attachments/assets/8f7422bb-7d50-4471-b392-842f3d468fbc)
+
 
 #### i. Question Generation Interface
 A button initiates the question generation model, displaying a list of relevant interview questions. Each question is clickable, allowing users to proceed to the next stage.
+
+
 ![image](https://github.com/user-attachments/assets/aacbded7-3944-48c7-8583-4121fe9c2d3c)
+
 
 #### ii. Interview Interaction
 Once a question is selected, the user is directed to a new page where the question is displayed. The platform uses **TTS** to read out the question, simulating a more interactive interview experience.
+
+
 ![image](https://github.com/user-attachments/assets/018463df-f0b5-4577-ac59-1f7e06369156)
+
 
 #### iii. Response Recording and Processing
 Users are prompted to record their answers, which are captured and converted into text using **speech-to-text** technology. The system then processes the response to generate feedback.
 
 #### iv. Feedback Display
 After each response, detailed feedback is provided, including insights on content quality, coherence, and engagement. Body language analysis feedback is also displayed, focusing on posture, hand movements, and signs of stress or confidence.
+
+
 ![image](https://github.com/user-attachments/assets/bbef8d65-eecf-4930-974e-4edc7f1862be)
+
 
 #### v. Iterative Practice
 Users can repeat the process with additional questions, allowing them to refine both verbal and non-verbal responses. The iterative practice helps users prepare comprehensively for real-life interviews.
